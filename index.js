@@ -1,8 +1,7 @@
 var proxy = require('express-http-proxy');
 var app = require('express')();
 
-app.use('/proxy', proxy('www.google.com'));
-app.use('/', function (req, res) {
-    res.send("It works");
-})
+var root = process.env.PROXY_ROOT || process.exit(1);
+
+app.use('/', proxy(root));
 app.listen(8080);
